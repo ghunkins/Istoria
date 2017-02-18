@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ghunk.istoria.TakePhoto">
+    tools:context="com.example.ghunk.istoria2.TakePhoto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,5 +18,4 @@
             android:adjustViewBounds="true"/>
 
     </RelativeLayout>
-
 </LinearLayout>

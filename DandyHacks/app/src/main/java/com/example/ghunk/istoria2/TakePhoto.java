@@ -1,4 +1,4 @@
-package com.example.ghunk.istoria;
+package com.example.ghunk.istoria2;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,12 +20,11 @@ public class TakePhoto extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_take_photo);
 
         dispatchTakePictureIntent();    // launches the camera
 
         result = (ImageView)findViewById(R.id.takeImageView);
-
     }
 
     @Override
@@ -63,3 +62,4 @@ public class TakePhoto extends AppCompatActivity {
 
 
 }
+
