@@ -16,13 +16,14 @@
 -->
 
 <resources>
-    <string name="app_name">Cheesesquare</string>
+    <string name="app_name">Istoria</string>
 
-  <string name="cheese_ipsum">Jarlsberg lancashire edam. Dolcelatte hard cheese brie st. agur blue
-    cheese caerphilly bavarian bergkase cheese and biscuits mascarpone. Cheeseburger swiss bavarian
-    bergkase cream cheese fromage frais cheesy feet port-salut airedale. St. agur blue cheese rubber
-    cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
-    the big cheese.</string>
+  <string name="cheese_ipsum">Welcome to the land of Harry Pooper and Chamber of Porcelain
+  Pots. Harry and his slave Ronaldo desire above else the attainment of that great epitome
+  of existence: the diamond poo. Using potions, owls, and the magic of their bowel movements,
+  Ronaldo and Harry capture a sorceress named Herpoopee who has attained the great enlightenment
+  of the diamond poo. As such, this is the story of their porcelain adventures and the resulting
+  tales.</string>
   <string name="checkin">Checkin</string>
 
   <string name="menu_night_mode">Night mode</string>
