@@ -59,6 +59,8 @@ public class TakePhoto extends AppCompatActivity {
         result.setImageBitmap(BitmapFactory.decodeFile(mCurrentPhotoPath));
 
         // SEND THE .JPG FILE TO THE SERVER
+        VisionManager uploader = new VisionManager();
+        uploader.uploadImage(Uri.fromFile(new File(mCurrentPhotoPath)), this);
 
         // display the loading ProgressDialog
         final ProgressDialog pd = new ProgressDialog(TakePhoto.this);
@@ -113,6 +115,9 @@ public class TakePhoto extends AppCompatActivity {
         }
         File image = new File(storageDir, imageFileName);
         mCurrentPhotoPath = image.getAbsolutePath();
+
+
+
         return image;
     }
 }
