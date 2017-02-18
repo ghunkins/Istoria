@@ -57,23 +57,27 @@
     //filter through the reviews and put them into our return object
     foreach($nodes as $href) {
         $review = array();
+        
         //echo $href->childNodes->item(0)->nodeValue;  //ONLY PROBABLY WHITESPACE
         array_push($review, trim($href->childNodes->item(1)->nodeValue));  //USERNAMES PLUS WHITESPACE
         //echo $href->childNodes->item(2)->nodeValue;  //ONLY WHITESPACE
         //echo $href->childNodes->item(3)->nodeValue;  //ONLY A DOT
         //echo $href->childNodes->item(4)->nodeValue;  //ONLY WHITESPACE
-        //echo $href->childNodes->item(5)->nodeValue;  //STARS
+        array_push($review, trim($href->childNodes->item(5)->nodeValue));  //STARS
         //echo $href->childNodes->item(6)->nodeValue;  //ONLY WHITESPACE
         //echo $href->childNodes->item(7)->nodeValue;  //ONLY DOTS
         //echo $href->childNodes->item(8)->nodeValue;  //ONLY WHITESPACE
-        //echo $href->childNodes->item(9)->nodeValue;  //DATES AND WHITESPACE
+        array_push($review, trim($href->childNodes->item(9)->nodeValue));  //DATES AND WHITESPACE
         //echo $href->childNodes->item(10)->nodeValue;  //ONLY WHITESPACES
-        //echo $href->childNodes->item(11)->nodeValue;  //ACTUAL REVIEWS
+        array_push($review, trim($href->childNodes->item(11)->nodeValue));  //ACTUAL REVIEWS
+
+        //fetch the link to the review
+        array_push($review, $href->getElementsByTagName('a')->item(0)->getAttribute('href'));
 
         array_push($reviews, $review);
     }
 
-    echo $reviews[0][0];
+    $book->reviews = $reviews;
 
 	header('Content-Type: application/json');
 	//echo json_encode($search_request);
