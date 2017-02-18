@@ -3,13 +3,13 @@ package com.support.android.designlibdemo;
 /**
  * Created by brand on 2/18/2017.
  */
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
@@ -27,7 +27,6 @@ import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,16 +42,14 @@ public class VisionManager {
 
     private Context c;
 
+    /* method called by TakePhoto.java */
     public void uploadImage(Uri uri, Context c) {
         this.c = c;
         if (uri != null) {
             try {
-                // scale the image to save on bandwidth
-                Bitmap bitmap =
-                        scaleBitmapDown(
-                                MediaStore.Images.Media.getBitmap(c.getContentResolver(), uri),
-                                1200);
-
+                // from Stack
+                // http://stackoverflow.com/questions/3879992/how-to-get-bitmap-from-an-uri
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(c.getContentResolver(), uri);
                 callCloudVision(bitmap);
                 //mMainImage.setImageBitmap(bitmap);
 
@@ -123,8 +120,8 @@ public class VisionManager {
                         // add the features we want
                         annotateImageRequest.setFeatures(new ArrayList<Feature>() {{
                             Feature labelDetection = new Feature();
-                            labelDetection.setType("LABEL_DETECTION");
-                            labelDetection.setMaxResults(10);
+                            labelDetection.setType("TEXT_DETECTION");  // changed from LABEL_DETECTION to TEXT_DETECTION
+                            labelDetection.setMaxResults(1);           // changed from 10 to 1
                             add(labelDetection);
                         }});
 

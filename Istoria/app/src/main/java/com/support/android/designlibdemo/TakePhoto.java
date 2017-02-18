@@ -72,7 +72,7 @@ public class TakePhoto extends AppCompatActivity {
         pd.show();
 
         /* begin Timer to keep track of how long server is taking */
-        new CountDownTimer(5000, 1000) {
+        new CountDownTimer(30000, 1000) {
             public void onTick(long millisUntilFinished) {
                 //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
                 /* update the pd message */
