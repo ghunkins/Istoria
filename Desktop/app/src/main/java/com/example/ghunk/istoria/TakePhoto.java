@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import java.io.File;
 
-public class MainActivity extends AppCompatActivity {
+public class TakePhoto extends AppCompatActivity {
 
     ImageView result;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -20,14 +20,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dispatchTakePictureIntent();
+        dispatchTakePictureIntent();    // launches the camera
 
-        /*File file = getFile();
-        startActivityForResult(takePhotoIntent, REQUEST_IMAGE_CAPTURE);         // start camera for taking photo
-*/
-        //Button click = (Button)findViewById(R.id.takePhoto);
         result = (ImageView)findViewById(R.id.takeImageView);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //String path = "sdcard/Istoria/test.jpg";
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            result.setImageBitmap(imageBitmap);
+        }
     }
 
     /* Pulled from official Android site:
@@ -42,16 +48,6 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
 
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //String path = "sdcard/Istoria/test.jpg";
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            result.setImageBitmap(imageBitmap);
-        }
     }
 
     private File getFile() {
