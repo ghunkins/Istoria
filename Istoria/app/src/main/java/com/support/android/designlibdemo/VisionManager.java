@@ -4,6 +4,7 @@ package com.support.android.designlibdemo;
  * Created by brand on 2/18/2017.
  */
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -30,7 +31,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
 
@@ -41,6 +41,7 @@ public class VisionManager {
     private static final String ANDROID_PACKAGE_HEADER = "X-Android-Package";
 
     private Context c;
+    //public String toReturn = null;
 
     /* method called by TakePhoto.java */
     public void uploadImage(Uri uri, Context c) {
@@ -50,6 +51,7 @@ public class VisionManager {
                 // from Stack
                 // http://stackoverflow.com/questions/3879992/how-to-get-bitmap-from-an-uri
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(c.getContentResolver(), uri);
+                if (bitmap == null) Log.e("o","FUCK IT'S NOT BITMAPPING");
                 callCloudVision(bitmap);
                 //mMainImage.setImageBitmap(bitmap);
 
@@ -63,12 +65,26 @@ public class VisionManager {
         }
     }
 
-    private void callCloudVision(final Bitmap bitmap) throws IOException {
+    public void callCloudVision(final Bitmap bitmap) throws IOException {
         // Switch text to loading
         //mImageDetails.setText(R.string.loading_message);
 
+
+        // Dialog for onPreExecute
+        final ProgressDialog pd = new ProgressDialog(c);
+
         // Do the real work in an async task, because we need to use the network anyway
         new AsyncTask<Object, Void, String>() {
+
+            @Override
+            protected void onPreExecute() {
+                pd.setTitle("Black Magic");
+                pd.setMessage("suck my black magic peepee");
+                pd.setIcon(R.drawable.ic_discuss);
+                pd.setCancelable(true);
+                pd.setCanceledOnTouchOutside(false);
+                pd.show();
+            }
             @Override
             protected String doInBackground(Object... params) {
                 try {
@@ -97,6 +113,7 @@ public class VisionManager {
 
                     Vision.Builder builder = new Vision.Builder(httpTransport, jsonFactory, null);
                     builder.setVisionRequestInitializer(requestInitializer);
+                    builder.setApplicationName("Istoria");
 
                     Vision vision = builder.build();
 
@@ -149,25 +166,31 @@ public class VisionManager {
 
             protected void onPostExecute(String result) {
                 Log.i("WE DID IT REDDIT", result);
+                pd.dismiss();
+                //toReturn = result;
+                //delegate.processFinish(result);
                 //mImageDetails.setText(result);
             }
         }.execute();
     }
 
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
-        String message = "I found these things:\n\n";
+        String toReturn = null;
+        Log.i("o", response.toString());
+        //List<EntityAnnotation> labels = response.getResponses().get(0).getTextAnnotations();
 
-        List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
-        if (labels != null) {
-            for (EntityAnnotation label : labels) {
-                message += String.format(Locale.US, "%.3f: %s", label.getScore(), label.getDescription());
-                message += "\n";
+        List<EntityAnnotation> coolStuff = response.getResponses().get(0).getTextAnnotations();
+        if (coolStuff != null) {
+            for (EntityAnnotation label : coolStuff) {
+                //toReturn += String.format(Locale.US, "%.3f: %s", label.getScore(), label.getDescription());
+                toReturn += label.getDescription();
+                //message += "\n";
             }
         } else {
-            message += "nothing";
+            toReturn += "nothing";
         }
 
-        return message;
+        return toReturn;
     }
 
     public Bitmap scaleBitmapDown(Bitmap bitmap, int maxDimension) {
