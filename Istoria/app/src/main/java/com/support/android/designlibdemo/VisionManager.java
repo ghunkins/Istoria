@@ -179,6 +179,7 @@ public class VisionManager {
 
             protected void onPostExecute(String result) {
                 Log.i("WE DID IT REDDIT", result);
+
                 if (result.equals("Cloud Vision API request failed. Check logs for details.") || result.equals("nothing")) {  // do something if "nothing"
                     result = "harry potter and the prisoner";
                 }

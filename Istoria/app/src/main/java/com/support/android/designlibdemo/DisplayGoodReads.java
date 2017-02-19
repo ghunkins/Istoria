@@ -21,14 +21,31 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.List;
+
 public class DisplayGoodReads extends AppCompatActivity {
 
-    public static final String EXTRA_NAME = "cheese_name";
+    public static final String EXTRA_NAME = "title";
+    public static final String EXTRA_AUTHOR = "author";
+    public static final String EXTRA_RATING = "rating";
+    public static final String EXTRA_SYNOPSIS = "synopsis";
+    public static final String EXTRA_IMAGE = "image";
+
+    String bookTitle;
+    String author;
+    String ratingText;
+    String synopsis;
+    String image;
+    List<List<String>> reviews;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,8 +53,12 @@ public class DisplayGoodReads extends AppCompatActivity {
         setContentView(R.layout.activity_detail);       // set the xml to activity_detail
 
         Intent intent = getIntent();
-
         final String cheeseName = intent.getStringExtra(EXTRA_NAME);    //gets the title name from intent
+        bookTitle = intent.getStringExtra(EXTRA_NAME);
+        author = intent.getStringExtra(EXTRA_AUTHOR);
+        ratingText = intent.getStringExtra(EXTRA_RATING);
+        synopsis = intent.getStringExtra(EXTRA_SYNOPSIS);
+        image = intent.getStringExtra(EXTRA_IMAGE);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);   //finds the toolbar
         setSupportActionBar(toolbar);
@@ -47,17 +68,41 @@ public class DisplayGoodReads extends AppCompatActivity {
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(cheeseName);                         // sets the title name
 
-        loadBackdrop();     //loads the image
+        loadBackdrop();                                                 //loads the image
+
+        /* LOAD THE DATA */
+        TextView bookTitle = (TextView)findViewById(R.id.book_title);
+        TextView author = (TextView)findViewById(R.id.author);
+        TextView ratingText = (TextView)findViewById(R.id.ratingText);
+        TextView synopsis = (TextView)findViewById(R.id.synopsis);
+        TextView review = (TextView)findViewById(R.id.review);
+        RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingBar);
+
+        ratingBar.setRating((float)4.1);
+
+        bookTitle.setText(this.bookTitle);
+        author.setText(this.author);
+        ratingText.setText(this.ratingText);
+        synopsis.setText(this.synopsis);
     }
 
     private void loadBackdrop() {
         final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load(Cheeses.getRandomCheeseDrawable()).centerCrop().into(imageView);
+        Glide.with(this).load(image).centerCrop().into(imageView);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.sample_actions, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.i("onOptionsItem", item.toString());
+        Intent myIntent = new Intent(getApplicationContext(), TakePhoto.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }
