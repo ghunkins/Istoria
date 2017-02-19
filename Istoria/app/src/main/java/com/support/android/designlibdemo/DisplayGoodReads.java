@@ -53,6 +53,8 @@ public class DisplayGoodReads extends AppCompatActivity {
         setContentView(R.layout.activity_detail);       // set the xml to activity_detail
 
         Intent intent = getIntent();
+
+        // parse the values from intent
         final String cheeseName = intent.getStringExtra(EXTRA_NAME);    //gets the title name from intent
         bookTitle = intent.getStringExtra(EXTRA_NAME);
         author = intent.getStringExtra(EXTRA_AUTHOR);
@@ -60,6 +62,7 @@ public class DisplayGoodReads extends AppCompatActivity {
         synopsis = intent.getStringExtra(EXTRA_SYNOPSIS);
         image = intent.getStringExtra(EXTRA_IMAGE);
 
+        // load the toolbars
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);   //finds the toolbar
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,7 +73,7 @@ public class DisplayGoodReads extends AppCompatActivity {
 
         loadBackdrop();                                                 //loads the image
 
-        /* LOAD THE DATA */
+        /* use specific objects in order to access */
         TextView bookTitle = (TextView)findViewById(R.id.book_title);
         TextView author = (TextView)findViewById(R.id.author);
         TextView ratingText = (TextView)findViewById(R.id.ratingText);
