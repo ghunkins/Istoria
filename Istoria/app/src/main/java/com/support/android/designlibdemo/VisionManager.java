@@ -78,9 +78,9 @@ public class VisionManager {
 
             @Override
             protected void onPreExecute() {
-                pd.setTitle("Black Magic");
-                pd.setMessage("suck my black magic peepee");
-                pd.setIcon(R.drawable.ic_discuss);
+                pd.setTitle("Querying");
+                pd.setMessage("Our magicians our conjuring...");
+                pd.setIcon(R.mipmap.ic_launcher2);
                 pd.setCancelable(true);
                 pd.setCanceledOnTouchOutside(false);
                 pd.show();
@@ -166,6 +166,9 @@ public class VisionManager {
 
             protected void onPostExecute(String result) {
                 Log.i("WE DID IT REDDIT", result);
+                if (result == "nothing") {  // do something if "nothing"
+
+                }
                 pd.dismiss();
                 //toReturn = result;
                 //delegate.processFinish(result);
@@ -177,20 +180,10 @@ public class VisionManager {
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
         String toReturn = null;
         Log.i("o", response.toString());
-        //List<EntityAnnotation> labels = response.getResponses().get(0).getTextAnnotations();
-
         List<EntityAnnotation> coolStuff = response.getResponses().get(0).getTextAnnotations();
-        if (coolStuff != null) {
-            for (EntityAnnotation label : coolStuff) {
-                //toReturn += String.format(Locale.US, "%.3f: %s", label.getScore(), label.getDescription());
-                toReturn += label.getDescription();
-                //message += "\n";
-            }
-        } else {
-            toReturn += "nothing";
-        }
-
-        return toReturn;
+        toReturn = coolStuff.get(0).getDescription();   // full text is the first argument
+        toReturn = toReturn.replace("\n", " ");         // replace newlines with spaces
+        return toReturn;                                // return
     }
 
     public Bitmap scaleBitmapDown(Bitmap bitmap, int maxDimension) {
