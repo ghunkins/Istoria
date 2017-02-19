@@ -211,6 +211,11 @@ public class VisionManager {
 
                         Intent intent = new Intent(c, DisplayGoodReads.class);
 
+                        Log.i("", response.body().getTitle());
+                        Log.i("", response.body().getAverageRating());
+                        Log.i("", response.body().getImageUrl());
+                        Log.i("", response.body().getAuthorName());
+
                         intent.putExtra(DisplayGoodReads.EXTRA_NAME, response.body().getTitle());
                         intent.putExtra(DisplayGoodReads.EXTRA_RATING, response.body().getAverageRating());
                         intent.putExtra(DisplayGoodReads.EXTRA_IMAGE, response.body().getImageUrl());

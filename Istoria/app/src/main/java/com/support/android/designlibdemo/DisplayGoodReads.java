@@ -78,17 +78,17 @@ public class DisplayGoodReads extends AppCompatActivity {
         TextView review = (TextView)findViewById(R.id.review);
         RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingBar);
 
-        ratingBar.setRating((float)4.1);
+        ratingBar.setRating(Float.parseFloat(this.ratingText));
 
         bookTitle.setText(this.bookTitle);
         author.setText(this.author);
-        ratingText.setText(this.ratingText);
+        ratingText.setText(this.ratingText+"/5.00");
         synopsis.setText(this.synopsis);
     }
 
     private void loadBackdrop() {
         final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        Glide.with(this).load(image).centerCrop().into(imageView);
+        Glide.with(this).load(image.replace("\\", "")).centerCrop().into(imageView);
     }
 
     @Override

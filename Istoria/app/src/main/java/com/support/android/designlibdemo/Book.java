@@ -7,18 +7,18 @@ import java.util.Map;
 public class Book {
 
     private String id;
-    private String booksCount;
-    private String ratingsCount;
-    private String textReviewsCount;
-    private String originalPublicationYear;
-    private String originalPublicationMonth;
-    private String originalPublicationDay;
-    private String averageRating;
+    private String books_count;
+    private String ratings_count;
+    private String text_reviews_count;
+    private String original_publication_year;
+    private String original_publication_month;
+    private String original_publication_day;
+    private String average_rating;
     private String title;
-    private String imageUrl;
-    private String smallImageUrl;
-    private String authorId;
-    private String authorName;
+    private String image_url;
+    private String small_image_url;
+    private String author_id;
+    private String author_name;
     private List<List<String>> reviews = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -31,59 +31,59 @@ public class Book {
     }
 
     public String getBooksCount() {
-        return booksCount;
+        return books_count;
     }
 
     public void setBooksCount(String booksCount) {
-        this.booksCount = booksCount;
+        this.books_count = booksCount;
     }
 
     public String getRatingsCount() {
-        return ratingsCount;
+        return ratings_count;
     }
 
     public void setRatingsCount(String ratingsCount) {
-        this.ratingsCount = ratingsCount;
+        this.ratings_count = ratingsCount;
     }
 
     public String getTextReviewsCount() {
-        return textReviewsCount;
+        return text_reviews_count;
     }
 
     public void setTextReviewsCount(String textReviewsCount) {
-        this.textReviewsCount = textReviewsCount;
+        this.text_reviews_count = textReviewsCount;
     }
 
     public String getOriginalPublicationYear() {
-        return originalPublicationYear;
+        return original_publication_year;
     }
 
     public void setOriginalPublicationYear(String originalPublicationYear) {
-        this.originalPublicationYear = originalPublicationYear;
+        this.original_publication_year = originalPublicationYear;
     }
 
     public String getOriginalPublicationMonth() {
-        return originalPublicationMonth;
+        return original_publication_month;
     }
 
     public void setOriginalPublicationMonth(String originalPublicationMonth) {
-        this.originalPublicationMonth = originalPublicationMonth;
+        this.original_publication_month = originalPublicationMonth;
     }
 
     public String getOriginalPublicationDay() {
-        return originalPublicationDay;
+        return original_publication_day;
     }
 
     public void setOriginalPublicationDay(String originalPublicationDay) {
-        this.originalPublicationDay = originalPublicationDay;
+        this.original_publication_day = originalPublicationDay;
     }
 
     public String getAverageRating() {
-        return averageRating;
+        return average_rating;
     }
 
     public void setAverageRating(String averageRating) {
-        this.averageRating = averageRating;
+        this.average_rating = averageRating;
     }
 
     public String getTitle() {
@@ -95,35 +95,35 @@ public class Book {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return image_url;
     }
 
     public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.image_url = imageUrl;
     }
 
     public String getSmallImageUrl() {
-        return smallImageUrl;
+        return small_image_url;
     }
 
     public void setSmallImageUrl(String smallImageUrl) {
-        this.smallImageUrl = smallImageUrl;
+        this.small_image_url = smallImageUrl;
     }
 
     public String getAuthorId() {
-        return authorId;
+        return author_id;
     }
 
     public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+        this.author_id = authorId;
     }
 
     public String getAuthorName() {
-        return authorName;
+        return author_name;
     }
 
     public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+        this.author_name = authorName;
     }
 
     public List<List<String>> getReviews() {
