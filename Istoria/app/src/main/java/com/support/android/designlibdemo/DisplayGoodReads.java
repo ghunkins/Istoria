@@ -87,6 +87,7 @@ public class DisplayGoodReads extends AppCompatActivity {
         TextView synopsis = (TextView)findViewById(R.id.synopsis);
         TextView review = (TextView)findViewById(R.id.review);
         RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingBar);
+        RatingBar ratingBar1 = (RatingBar)findViewById(R.id.ratingBarReview1);
 
         ratingBar.setRating(Float.parseFloat(this.ratingText));
 
@@ -95,6 +96,7 @@ public class DisplayGoodReads extends AppCompatActivity {
         ratingText.setText(this.ratingText+"/5.00");
         synopsis.setText(this.synopsis);
         review.setText(this.review);
+        ratingBar1.setRating(Float.parseFloat(this.ratingText));
     }
 
     private void loadBackdrop() {
