@@ -6,6 +6,7 @@ package com.support.android.designlibdemo;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -31,6 +32,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.ContentValues.TAG;
 
@@ -79,7 +87,7 @@ public class VisionManager {
             @Override
             protected void onPreExecute() {
                 pd.setTitle("Querying");
-                pd.setMessage("Our magicians our conjuring...");
+                pd.setMessage("Our magicians are conjuring...");
                 pd.setIcon(R.mipmap.ic_launcher2);
                 pd.setCancelable(true);
                 pd.setCanceledOnTouchOutside(false);
@@ -87,10 +95,12 @@ public class VisionManager {
             }
             @Override
             protected String doInBackground(Object... params) {
+                Log.d(TAG, "beginning do in background method");
                 try {
                     HttpTransport httpTransport = AndroidHttp.newCompatibleTransport();
                     JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 
+                    Log.d(TAG, "making initializer");
                     VisionRequestInitializer requestInitializer =
                             new VisionRequestInitializer(CLOUD_VISION_API_KEY) {
                                 /**
@@ -115,10 +125,13 @@ public class VisionManager {
                     builder.setVisionRequestInitializer(requestInitializer);
                     builder.setApplicationName("Istoria");
 
+                    Log.d(TAG, "building vision");
                     Vision vision = builder.build();
 
                     BatchAnnotateImagesRequest batchAnnotateImagesRequest =
                             new BatchAnnotateImagesRequest();
+
+                    Log.d(TAG, "setting requests");
                     batchAnnotateImagesRequest.setRequests(new ArrayList<AnnotateImageRequest>() {{
                         AnnotateImageRequest annotateImageRequest = new AnnotateImageRequest();
 
@@ -166,10 +179,58 @@ public class VisionManager {
 
             protected void onPostExecute(String result) {
                 Log.i("WE DID IT REDDIT", result);
-                if (result == "nothing") {  // do something if "nothing"
-
+                if (result.equals("Cloud Vision API request failed. Check logs for details.") || result.equals("nothing")) {  // do something if "nothing"
+                    result = "harry potter and the prisoner";
                 }
-                pd.dismiss();
+
+                Log.d(TAG, result);
+
+
+                String API_BASE_URL = "http://ocr.simg.us";
+                OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+                Retrofit.Builder builder = new Retrofit.Builder().baseUrl(API_BASE_URL).addConverterFactory(GsonConverterFactory.create());
+
+                Retrofit retrofit = builder.client(httpClient.build()).build();
+
+                OCRClient client =  retrofit.create(OCRClient.class);
+
+                Call<Book> call = client.doQuery(result);
+
+                // Execute the call asynchronously. Get a positive or negative callback.
+                call.enqueue(new Callback<Book>() {
+                    @Override
+                    public void onResponse(Call<Book> call, Response<Book> response) {
+
+                        Log.d(TAG, "response");
+
+                        // The network call was a success and we got a response
+                        // TODO: use the repository list and display it
+                        pd.dismiss();
+
+                        Intent intent = new Intent(c, DisplayGoodReads.class);
+
+                        intent.putExtra(DisplayGoodReads.EXTRA_NAME, response.body().getTitle());
+                        intent.putExtra(DisplayGoodReads.EXTRA_RATING, response.body().getAverageRating());
+                        intent.putExtra(DisplayGoodReads.EXTRA_IMAGE, response.body().getImageUrl());
+                        intent.putExtra(DisplayGoodReads.EXTRA_AUTHOR, response.body().getAuthorName());
+                        //final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
+
+                        c.startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Book> call, Throwable t) {
+
+                        Log.d(TAG, "fail");
+
+                        // the network call was a failure
+                        // TODO: handle error
+                        pd.dismiss();
+                    }
+                });
+
+
                 //toReturn = result;
                 //delegate.processFinish(result);
                 //mImageDetails.setText(result);
@@ -178,12 +239,16 @@ public class VisionManager {
     }
 
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
-        String toReturn = null;
-        Log.i("o", response.toString());
-        List<EntityAnnotation> coolStuff = response.getResponses().get(0).getTextAnnotations();
-        toReturn = coolStuff.get(0).getDescription();   // full text is the first argument
-        toReturn = toReturn.replace("\n", " ");         // replace newlines with spaces
-        return toReturn;                                // return
+        try {
+            String toReturn = null;
+            Log.i("o", response.toString());
+            List<EntityAnnotation> coolStuff = response.getResponses().get(0).getTextAnnotations();
+            toReturn = coolStuff.get(0).getDescription();   // full text is the first argument
+            toReturn = toReturn.replace("\n", " ");         // replace newlines with spaces
+            return toReturn;                                // return
+        } catch (Exception e) {
+            return "nothing";
+        }
     }
 
     public Bitmap scaleBitmapDown(Bitmap bitmap, int maxDimension) {

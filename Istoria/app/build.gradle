@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.support.android.designlibdemo"
         minSdkVersion 9
-        targetSdkVersion 25
+        targetSdkVersion 19
         versionCode 1
         versionName "1.0"
     }
@@ -43,4 +43,6 @@ dependencies {
     compile ('com.google.http-client:google-http-client-gson:1.17.0-rc') {
         exclude module: 'httpclient'
     }
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 }
