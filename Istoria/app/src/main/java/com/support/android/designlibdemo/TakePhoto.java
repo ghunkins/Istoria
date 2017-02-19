@@ -57,7 +57,7 @@ public class TakePhoto extends AppCompatActivity {
     }
 
     private void countDownToPhoto() {
-        new CountDownTimer(5000, 1000) {
+        new CountDownTimer(3000, 1000) {
             public void onTick(long millisUntilFinished) {}
             public void onFinish() {
                 Log.e("o", "the countdownToPhoto is finished");

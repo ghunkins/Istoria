@@ -28,7 +28,7 @@ import com.bumptech.glide.Glide;
 
 public class DisplayGoodReads extends AppCompatActivity {
 
-    public static final String EXTRA_NAME = "cheese_name";
+    public static final String EXTRA_NAME = "googlequery";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class DisplayGoodReads extends AppCompatActivity {
         Intent intent = getIntent();
 
         final String cheeseName = intent.getStringExtra(EXTRA_NAME);    //gets the title name from intent
+
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);   //finds the toolbar
         setSupportActionBar(toolbar);

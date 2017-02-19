@@ -6,6 +6,7 @@ package com.support.android.designlibdemo;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -79,7 +80,7 @@ public class VisionManager {
             @Override
             protected void onPreExecute() {
                 pd.setTitle("Querying");
-                pd.setMessage("Our magicians our conjuring...");
+                pd.setMessage("Our magicians are conjuring...");
                 pd.setIcon(R.mipmap.ic_launcher2);
                 pd.setCancelable(true);
                 pd.setCanceledOnTouchOutside(false);
@@ -166,13 +167,18 @@ public class VisionManager {
 
             protected void onPostExecute(String result) {
                 Log.i("WE DID IT REDDIT", result);
-                if (result == "nothing") {  // do something if "nothing"
-
+                if (result == "nothing") {
+                    // do something if "nothing" ???
                 }
+
+                // query Brandon's server and wait for response
+                // store the results somewhere ???
+                Intent myIntent = new Intent(c, DisplayGoodReads.class);
+                myIntent.putExtra("googlequery", result);
                 pd.dismiss();
-                //toReturn = result;
-                //delegate.processFinish(result);
-                //mImageDetails.setText(result);
+                c.startActivity(myIntent);
+
+
             }
         }.execute();
     }
