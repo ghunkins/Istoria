@@ -100,8 +100,10 @@ public class DisplayGoodReads extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.i("onOptionsItem", item.toString());
-        Intent myIntent = new Intent(getApplicationContext(), TakePhoto.class);
-        startActivityForResult(myIntent, 0);
+        if (item.getItemId() == android.R.id.home) {       // if it's the back button
+            Intent myIntent = new Intent(getApplicationContext(), TakePhoto.class);
+            startActivityForResult(myIntent, 0);
+        }
         return true;
 
     }

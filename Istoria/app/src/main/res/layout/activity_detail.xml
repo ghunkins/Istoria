@@ -160,6 +160,16 @@
                         android:text="Top Review"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
+                    <RatingBar
+                        android:id="@+id/ratingBarReview1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:numStars="5"
+                        android:stepSize="0.5"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"/>
+
                     <TextView
                         android:id="@+id/review"
                         android:layout_width="match_parent"
