@@ -27,15 +27,22 @@
 
     //get reviews from the embedded URL in another API call to get book details
     $xml = file_get_contents('https://www.goodreads.com/book/show/'.$book->id.'.xml?key=2E0T8ZFM9tqVVY9OaY5A&text_only=true');
-    // $xml = str_replace(array("\n", "\r", "\t"), '', $xml);
-    // $xml = trim(str_replace('"', "'", $xml));
-    // $simple_xml = simplexml_load_string($xml);
+    // $other_xml = str_replace(array("\n", "\r", "\t"), '', $xml);
+    // $other_xml = trim(str_replace('"', "'", $other_xml));
+    // $simple_xml = simplexml_load_string($other_xml);
     // $json = json_encode($simple_xml);
     // $json = json_decode($json);
+
+    // echo json_encode($json->book);
+    // echo json_encode($json->book->description);
 
     //this is really ugly and shouldn't exist, curse you GoodReads
     $dom = new DOMDocument;
     $dom->loadXML($xml);
+
+    //get synopsis
+    $book->synopsis = $dom->getElementsByTagName('description')[0]->nodeValue;
+
     $widget = $dom->getElementsByTagName('reviews_widget')[0]->nodeValue;
 
     //here we extract the link for the widget embedd with slightly less 

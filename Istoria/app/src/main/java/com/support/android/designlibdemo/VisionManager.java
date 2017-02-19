@@ -215,11 +215,13 @@ public class VisionManager {
                         Log.i("", response.body().getAverageRating());
                         Log.i("", response.body().getImageUrl());
                         Log.i("", response.body().getAuthorName());
+                        Log.i("synopsis", response.body().getSynopsis());
 
                         intent.putExtra(DisplayGoodReads.EXTRA_NAME, response.body().getTitle());
                         intent.putExtra(DisplayGoodReads.EXTRA_RATING, response.body().getAverageRating());
                         intent.putExtra(DisplayGoodReads.EXTRA_IMAGE, response.body().getImageUrl());
                         intent.putExtra(DisplayGoodReads.EXTRA_AUTHOR, response.body().getAuthorName());
+                        intent.putExtra(DisplayGoodReads.EXTRA_SYNOPSIS, response.body().getSynopsis());
                         //final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
 
                         c.startActivity(intent);

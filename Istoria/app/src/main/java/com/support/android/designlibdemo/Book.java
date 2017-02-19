@@ -19,8 +19,17 @@ public class Book {
     private String small_image_url;
     private String author_id;
     private String author_name;
+    private String synopsis;
     private List<List<String>> reviews = null;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
 
     public String getId() {
         return id;
