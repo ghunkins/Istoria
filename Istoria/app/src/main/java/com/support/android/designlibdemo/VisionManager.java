@@ -203,6 +203,11 @@ public class VisionManager {
                     @Override
                     public void onResponse(Call<Book> call, Response<Book> response) {
 
+                        if (response.body().getId() == null) {
+                            onFailure(call, new Throwable());
+                            return;
+                        }
+
                         Log.d(TAG, "response");
 
                         // The network call was a success and we got a response
