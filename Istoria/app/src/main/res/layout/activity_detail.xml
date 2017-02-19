@@ -79,6 +79,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/book_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Book Title"
@@ -86,19 +87,21 @@
                         android:layout_margin="@dimen/card_margin"/>
 
                     <TextView
+                        android:id="@+id/author"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Author"
                         android:layout_margin="@dimen/card_margin"/>
 
                     <RatingBar
+                        android:id="@+id/ratingBar"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:numStars="5"
-                        android:id="@+id/ratingBar"
                         android:layout_margin="8dp"/>
 
                     <TextView
+                        android:id="@+id/ratingText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="4.3/5"
@@ -127,6 +130,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
+                        android:id="@+id/synopsis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/cheese_ipsum" />
@@ -154,6 +158,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
+                        android:id="@+id/review"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/cheese_ipsum" />

@@ -47,16 +47,10 @@ public class TakePhoto extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         countDownToPhoto();
-
-
-        //dispatchTakePictureIntent();    // launches the camera
-
-        //result = (ImageView)findViewById(R.id.takeImageView);
-        //result.setImageBitmap(BitmapFactory.decodeFile(mCurrentPhotoPath));
-
     }
 
     private void countDownToPhoto() {
+        /* waiting period is necessary for pic intent to work properly */
         new CountDownTimer(3000, 1000) {
             public void onTick(long millisUntilFinished) {}
             public void onFinish() {
@@ -80,15 +74,11 @@ public class TakePhoto extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (photoFile != null) {
-                //Log.e("1", Uri.parse(mCurrentPhotoPath).toString());
-                //Uri photoUri = FileProvider.getUriForFile(this, "com.support.android.fileprovider", photoFile);
                 Uri photoUri = Uri.fromFile(photoFile);
                 masterUri = Uri.fromFile(photoFile);
-                //Uri photoUri = Uri.parse(mCurrentPhotoPath);
-                //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.parse(mCurrentPhotoPath));  // add saving photo to file
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);  // add saving photo to file
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                Log.e("o", "it's starting the picture intent");
+                Log.i("dispatchTakePicIntent", "it's starting the picture intent");
             }
         }
     }
@@ -103,64 +93,24 @@ public class TakePhoto extends AppCompatActivity {
         if (!storageDir.exists()) {
             storageDir.mkdir();
         }
-        //File image = new File(this.getFilesDir(), imageFileName);
-        //File image = new File(storageDir, imageFileName);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
         mCurrentPhotoPath = image.getAbsolutePath();
-        //Log.e("0", Uri.parse(mCurrentPhotoPath).toString());
         return image;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Log.e("o", "IMAGE SUCCESSFUL");
-            //Log.e("2", Uri.parse(mCurrentPhotoPath).toString());
+            Log.i("onActivityResult", "IMAGE SUCCESSFUL");
         }
-        // display the background as the photo taken
-        //result = (ImageView)findViewById(R.id.takeImageView);
-        //result.setImageBitmap(BitmapFactory.decodeFile(mCurrentPhotoPath));
-
-
         // SEND THE .JPG FILE TO THE SERVER
         VisionManager uploader = new VisionManager();
-        //uploader.uploadImage(Uri.parse(mCurrentPhotoPath), this);
         //uploader.uploadImage(Uri.fromFile(new File(mCurrentPhotoPath)), this);      // LOOK AT THIS
         uploader.uploadImage(masterUri, this);
-
-        // WAIT FOR THE DAMN ASYNC TO FUCKING FINISH AND FUCKING RETURN
-        // ???
-
-        // display the loading ProgressDialog
-        /*final ProgressDialog pd = new ProgressDialog(TakePhoto.this);
-        pd.setTitle("Black Magic");
-        pd.setMessage("suck my black magic peepee");
-        pd.setIcon(R.drawable.ic_discuss);
-        pd.setCancelable(true);
-        pd.setCanceledOnTouchOutside(false);
-        pd.show();*/
-
-        /* begin Timer to keep track of how long server is taking */
-        /*new CountDownTimer(30000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                //mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
-
-            }
-            public void onFinish() {
-                //mTextField.setText("done!");
-                pd.dismiss();
-
-                Intent intent = new Intent(TakePhoto.this, DisplayGoodReads.class);
-                //intent.putExtra(DisplayGoodReads.EXTRA_NAME, holder.mBoundString);
-                //final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
-
-                startActivity(intent);
-            }
-        }.start();*/
     }
 }
 

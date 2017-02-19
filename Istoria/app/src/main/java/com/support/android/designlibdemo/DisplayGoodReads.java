@@ -23,6 +23,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -48,7 +50,25 @@ public class DisplayGoodReads extends AppCompatActivity {
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(cheeseName);                         // sets the title name
 
-        loadBackdrop();     //loads the image
+        loadBackdrop();                                                 //loads the image
+
+        /* LOAD THE DATA */
+        TextView bookTitle = (TextView)findViewById(R.id.book_title);
+        TextView author = (TextView)findViewById(R.id.author);
+        TextView ratingText = (TextView)findViewById(R.id.ratingText);
+        TextView synopsis = (TextView)findViewById(R.id.synopsis);
+        TextView review = (TextView)findViewById(R.id.review);
+        RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingBar);
+
+
+        /*
+        bookTitle.setText("sup suckers");
+        author.setText();
+        ratingText.setText();
+        synopsis.setText();
+        review.setText();
+        */
+
     }
 
     private void loadBackdrop() {
