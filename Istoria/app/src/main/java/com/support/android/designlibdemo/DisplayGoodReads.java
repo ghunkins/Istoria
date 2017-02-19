@@ -21,7 +21,9 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -38,7 +40,6 @@ public class DisplayGoodReads extends AppCompatActivity {
         setContentView(R.layout.activity_detail);       // set the xml to activity_detail
 
         Intent intent = getIntent();
-
         final String cheeseName = intent.getStringExtra(EXTRA_NAME);    //gets the title name from intent
 
 
@@ -60,6 +61,7 @@ public class DisplayGoodReads extends AppCompatActivity {
         TextView review = (TextView)findViewById(R.id.review);
         RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingBar);
 
+        ratingBar.setRating((float)4.1);
 
         /*
         bookTitle.setText("sup suckers");
@@ -80,5 +82,14 @@ public class DisplayGoodReads extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.sample_actions, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.i("onOptionsItem", item.toString());
+        Intent myIntent = new Intent(getApplicationContext(), TakePhoto.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }
